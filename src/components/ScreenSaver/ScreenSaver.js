@@ -1,7 +1,7 @@
-'use client';
-import React from 'react';
+'use client'
+import React from 'react'
 
-import styles from './ScreenSaver.module.css';
+import styles from './ScreenSaver.module.css'
 
 function ScreenSaver({ color = 'white' }) {
   const [state, setState] = React.useState({
@@ -11,47 +11,43 @@ function ScreenSaver({ color = 'white' }) {
       horizontal: 1,
       vertical: 1,
     },
-  });
+  })
 
-  const ref = React.useRef();
+  const ref = React.useRef()
 
   React.useEffect(() => {
-    const bb =
-      ref.current.getBoundingClientRect();
+    const bb = ref.current.getBoundingClientRect()
 
-    window.requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       const nextPosition = {
         x: state.x + state.inertia.horizontal,
         y: state.y + state.inertia.vertical,
-      };
-      const nextInertia = { ...state.inertia };
+      }
+
+      const nextInertia = { ...state.inertia }
 
       // As the logo moves across the screen,
       // it'll eventually hit an edge. When
       // that happens, it needs to bounce,
       // flipping its inertia so it moves
       // in the opposite direction.
-      if (
-        nextPosition.x < 0 ||
-        nextPosition.x >
-          window.innerWidth - bb.width
-      ) {
-        nextInertia.horizontal *= -1;
+      if (nextPosition.x < 0 || nextPosition.x > window.innerWidth - bb.width) {
+        nextInertia.horizontal *= -1
       }
+
       if (
         nextPosition.y < 0 ||
-        nextPosition.y >
-          window.innerHeight - bb.height
+        nextPosition.y > window.innerHeight - bb.height
       ) {
-        nextInertia.vertical *= -1;
+        nextInertia.vertical *= -1
       }
 
       setState({
         ...nextPosition,
         inertia: nextInertia,
-      });
-    });
-  }, [state]);
+      })
+    })
+  }, [state])
 
   return (
     <svg
@@ -69,7 +65,7 @@ function ScreenSaver({ color = 'white' }) {
         fill={color}
       ></path>
     </svg>
-  );
+  )
 }
 
-export default ScreenSaver;
+export default ScreenSaver
